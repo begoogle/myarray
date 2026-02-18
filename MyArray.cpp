@@ -47,15 +47,17 @@ MyArray& MyArray::operator=(MyArray&& originalArray) noexcept
 	return *this;
 }
 
+MyArray::~MyArray() {}
+
 std::string MyArray::toString() const
 {
 	const std::span<const int> items = { this->ptr.get(), this->size() };
 	std::ostringstream output;
 
-	for (size_t i = 0; auto& item : items)
+	for (size_t i = 0; const auto& item : items)
 	{
 		i++;
-		output << item << (i < this->arrSize ? " " : "");
+		output << item << (i < this->arrSize ? ", " : "");
 	}
 	return output.str();
 }

@@ -19,6 +19,7 @@ public:
 
 	MyArray(MyArray&& originalArray) noexcept;
 	MyArray& operator= (MyArray&& originalArray) noexcept;
+	~MyArray();
 
 	std::string toString() const;
 
@@ -34,7 +35,6 @@ public:
 	MyArray& operator+=(int value);
 
 	size_t size() const noexcept;
-	
 
 private:
 	std::unique_ptr<int[]> ptr;
