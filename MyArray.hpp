@@ -1,5 +1,6 @@
 #ifndef _MY_ARRAY_HPP_
 #define _MY_ARRAY_HPP_
+
 #include <memory>
 #include <initializer_list>
 #include <iostream>
@@ -16,6 +17,8 @@ public:
 
 	MyArray(const MyArray& originalArray);
 	MyArray& operator= (const MyArray& originalArray);
+
+	size_t size() const noexcept;
 
 	MyArray(MyArray&& originalArray) noexcept;
 	MyArray& operator= (MyArray&& originalArray) noexcept;
@@ -34,12 +37,14 @@ public:
 	MyArray operator++(int);
 	MyArray& operator+=(int value);
 
-	size_t size() const noexcept;
-
 private:
 	std::unique_ptr<int[]> ptr;
 	size_t arrSize{ 0 };
 	friend void swap(MyArray &firstObj, MyArray &secondObj) noexcept;
+
+	friend std::istream& operator>> (std::istream& in, MyArray& obj);
 };
+
+std::ostream& operator<< (std::ostream& out, const MyArray& obj);
 
 #endif // !_MY_ARRAY_HPP_

@@ -109,7 +109,7 @@ MyArray MyArray::operator++(int)
 MyArray& MyArray::operator+=(int value)
 {
 	const std::span<int> items{ this->ptr.get(), this->arrSize };
-	std::for_each(std::begin(items), std::end(items), [](auto& item) {item += item; });
+	std::for_each(std::begin(items), std::end(items), [value](auto& item) {item += value; });
 	return *this;
 }
 
@@ -122,7 +122,20 @@ void swap(MyArray& firstObj, MyArray& secondObj) noexcept
 {
 	std::swap(firstObj.arrSize, secondObj.arrSize);
 	firstObj.ptr.swap(secondObj.ptr);
-
 }
 
+std::istream& operator>>(std::istream& in, MyArray& obj)
+{
+	std::span<int> items{ obj.ptr.get(), obj.arrSize };
+	for (auto& i : items)
+	{
+		in >> i;
+	}
+	return in;
+}
 
+std::ostream& operator<<(std::ostream& out, const MyArray& obj)
+{
+	out << obj.toString();
+	return out;
+}
